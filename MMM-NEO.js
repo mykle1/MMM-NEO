@@ -64,10 +64,10 @@ Module.register("MMM-NEO", {
 
             var neo = this.neo[keys[this.activeItem]];
              
-            for(var i = 0; i < neo.links.length; i++){ 
-			var neolinks = neo.links[i];
+            for(var i = 0; i < neo.near_earth_objects.length; i++){ 
+			var neoSource = neo.near_earth_objects[i];
 			
-console.log(neolinks);
+console.log(neoSource);
 console.log(neo.data[0].name);  
   
             var top = document.createElement("div");
