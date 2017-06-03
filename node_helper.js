@@ -22,7 +22,7 @@ module.exports = NodeHelper.create({
         }, (error, response, body) => {
             if (!error && response.statusCode == 200) {
                 var result = JSON.parse(body).near_earth_objects;
-				console.log(response.statusCode);
+	//console.log(response.statusCode);
                 this.sendSocketNotification('NEO_RESULT', result);
             }
         });
