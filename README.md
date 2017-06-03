@@ -33,9 +33,6 @@ How big are they? How fast are they travelling? Are they potentially dangerous? 
 		header: "",
 		maxWidth: "250px",
 		animationSpeed: 3000,           // Image fades in and out
-		initialLoadDelay: 4250,
-		retryDelay: 2500,
-		updateInterval: 60 * 60 * 1000, // NEO Limits 50 calls a day. Every 30 minutes = 48. 
         }
     },
 	
