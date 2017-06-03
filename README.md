@@ -9,7 +9,11 @@ How big are they? How fast are they travelling? Are they potentially dangerous? 
 * Annotated .css file included for aligning and coloring text and header.
 * Works well when coupled with MMM-NASA which has stunning imagery.
 
-![](pix/1.JPG), ![](pix/2.JPG), ![](pix/3.JPG)
+![](pix/1.JPG), ![](pix/2.JPG),
+
+* By itself. No header. Colored object name and colored information.
+
+![](pix/3.JPG)
 
 ## Installation
 
