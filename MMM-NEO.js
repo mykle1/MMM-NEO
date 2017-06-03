@@ -127,7 +127,7 @@ console.log(neo.data[0].name);
     processNEO: function(data) {
         
 		this.today = data.Today;
-       this.neo = data;
+       this.neo = data["2017-06-02"];
         this.loaded = true;
     },
     
