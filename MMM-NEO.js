@@ -22,6 +22,10 @@ Module.register("MMM-NEO", {
     getStyles: function() {
         return ["MMM-NEO.css"];
     },
+    
+    getScripts: function () {
+		return ["moment.js"];
+	},
 
     start: function() {
         Log.info("Starting module: " + this.name);
@@ -62,15 +66,8 @@ Module.register("MMM-NEO", {
                 this.activeItem = 0;
             }
             var neo = this.neo[neoKeys[this.activeItem]];
-		
-		for(var i = 0; i < neo.near_earth_objects.length; i++){ 
-			var neoNearEarthObjects = neo.near_earth_objects[i];
-		
-		
-		
-			
-console.log(neoNearEarthObjects);
-console.log(neo.data[0].name);  
+	
+console.log(this.neo);  
   
             var top = document.createElement("div");
             top.classList.add("list-row");
@@ -79,34 +76,34 @@ console.log(neo.data[0].name);
             var name = document.createElement("div");
            
 			name.classList.add("small", "bright");
-			name.innerHTML = "NASA NEO ID: '&nbsp'" + neo.data[0].name;
+			name.innerHTML = "NASA NEO ID: '&nbsp'" + neo.name;
 			wrapper.appendChild(name);
 		
 			
 			// Potentially Hazardous
 			var neoDanger = document.createElement("div");
 			neoDanger.classList.add("xsmall", "bright");
-			neoDanger.innerHTML = "Potentially Hazardous: '&nbsp' " + neo.data[2017-06-01][0].is_potentially_hazardous_asteroid;
+			neoDanger.innerHTML = "Potentially Hazardous: '&nbsp' " + neo.is_potentially_hazardous_asteroid;
 			wrapper.appendChild(neoDanger);
 			
 			// Estimated Diameter
 			var neoDiameter = document.createElement("div");
 			neoDiameter.classList.add("xsmall", "bright");
-			neoDiameter.innerHTML = "Estimated Diameter: '&nbsp' " + neo.data[2017-06-01][0].estimated_diameter.miles.estimated_diameter_max + '&nbsp' + "miles";
+			neoDiameter.innerHTML = "Estimated Diameter: '&nbsp' " + neo.estimated_diameter.miles.estimated_diameter_max + '&nbsp' + "miles";
 			wrapper.appendChild(neoDiameter);
 			
-			
+///////////////// THIS BELOW NEEDS TO BE FIXED, it doesn't work//////////////////////////////////////////
 			// relative_velocity
-			var neoVelocity = document.createElement("div");
-			neoVelocity.classList.add("xsmall", "bright");
-			neoVelocity.innerHTML = "Relative Velocity: '&nbsp' " + neo.data[2017-06-01][0].close_approach_data[0].relative_velocity.miles_per_hour + '&nbsp' + "mph";
-			wrapper.appendChild(neoVelocity);
+			//var neoVelocity = document.createElement("div");
+			//neoVelocity.classList.add("xsmall", "bright");
+			//neoVelocity.innerHTML = "Relative Velocity: '&nbsp' " + neo.close_approach_data.relative_velocity.miles_per_hour + '&nbsp' + "mph";
+	//		wrapper.appendChild(neoVelocity);
 			
 			
 			// Close Approach Date
 			var neoApproach = document.createElement("div");
 			neoApproach.classList.add("xsmall", "bright");
-			neoApproach.innerHTML = "Close Approach Date: '&nbsp' " + neo.data[2017-06-01][0].close_approach_data[0].close_approach_date;
+			neoApproach.innerHTML = "Close Approach Date: '&nbsp' " + neo.close_approach_data[0].close_approach_date;
 			wrapper.appendChild(neoApproach);
 			
 			
@@ -114,9 +111,9 @@ console.log(neo.data[0].name);
 			// Miss Distance
 			var neoMiss = document.createElement("div");
 			neoMiss.classList.add("xsmall", "bright");
-			neoMiss.innerHTML = "Close Approach Date: '&nbsp' " + neo.data[2017-06-01][0].close_approach_data[0].miss_distance.miles + '&nbsp' + "miles";
+			neoMiss.innerHTML = "Close Approach Date: '&nbsp' " + neo.close_approach_data[0].miss_distance.miles + '&nbsp' + "miles";
 			//wrapper.appendChild(neoMiss);
-			}	
+		
 					
 			
         }
@@ -125,9 +122,9 @@ console.log(neo.data[0].name);
     },
 
     processNEO: function(data) {
-        
+        var date = moment(new Date()).format("YYYY-MM-DD");
 		this.today = data.Today;
-       this.neo = data["2017-06-02"];
+        this.neo = data[date];
         this.loaded = true;
     },
     
