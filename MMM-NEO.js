@@ -67,7 +67,7 @@ Module.register("MMM-NEO", {
             }
             var neo = this.neo[neoKeys[this.activeItem]];
 	
-console.log(this.neo);  
+// console.log(this.neo);  
   
             var top = document.createElement("div");
             top.classList.add("list-row");
@@ -76,34 +76,35 @@ console.log(this.neo);
             var name = document.createElement("div");
            
 			name.classList.add("small", "bright");
-			name.innerHTML = "NASA NEO ID: '&nbsp'" + neo.name;
+			name.innerHTML = "NASA NEO ID: &nbsp" + neo.name;
 			wrapper.appendChild(name);
 		
 			
 			// Potentially Hazardous
 			var neoDanger = document.createElement("div");
 			neoDanger.classList.add("xsmall", "bright");
-			neoDanger.innerHTML = "Potentially Hazardous: '&nbsp' " + neo.is_potentially_hazardous_asteroid;
+			neoDanger.innerHTML = "Potentially Hazardous: &nbsp" + neo.is_potentially_hazardous_asteroid;
 			wrapper.appendChild(neoDanger);
+			
 			
 			// Estimated Diameter
 			var neoDiameter = document.createElement("div");
 			neoDiameter.classList.add("xsmall", "bright");
-			neoDiameter.innerHTML = "Estimated Diameter: '&nbsp' " + neo.estimated_diameter.miles.estimated_diameter_max + '&nbsp' + "miles";
+			neoDiameter.innerHTML = "Estimated Diameter: &nbsp" + neo.estimated_diameter.meters.estimated_diameter_max + '&nbsp' + "meters";
 			wrapper.appendChild(neoDiameter);
 			
-///////////////// THIS BELOW NEEDS TO BE FIXED, it doesn't work//////////////////////////////////////////
+			
 			// relative_velocity
-			//var neoVelocity = document.createElement("div");
-			//neoVelocity.classList.add("xsmall", "bright");
-			//neoVelocity.innerHTML = "Relative Velocity: '&nbsp' " + neo.close_approach_data.relative_velocity.miles_per_hour + '&nbsp' + "mph";
-	//		wrapper.appendChild(neoVelocity);
+			var neoVelocity = document.createElement("div");
+			neoVelocity.classList.add("xsmall", "bright");
+			neoVelocity.innerHTML = "Relative Velocity: &nbsp" + neo.close_approach_data[0].relative_velocity.miles_per_hour + '&nbsp' + "mph";
+			wrapper.appendChild(neoVelocity);
 			
 			
 			// Close Approach Date
 			var neoApproach = document.createElement("div");
 			neoApproach.classList.add("xsmall", "bright");
-			neoApproach.innerHTML = "Close Approach Date: '&nbsp' " + neo.close_approach_data[0].close_approach_date;
+			neoApproach.innerHTML = "Close Approach Date: &nbsp" + neo.close_approach_data[0].close_approach_date;
 			wrapper.appendChild(neoApproach);
 			
 			
@@ -111,7 +112,7 @@ console.log(this.neo);
 			// Miss Distance
 			var neoMiss = document.createElement("div");
 			neoMiss.classList.add("xsmall", "bright");
-			neoMiss.innerHTML = "Close Approach Date: '&nbsp' " + neo.close_approach_data[0].miss_distance.miles + '&nbsp' + "miles";
+			neoMiss.innerHTML = "Missed Earth by &nbsp" + neo.close_approach_data[0].miss_distance.miles + '&nbsp' + "miles";
 			//wrapper.appendChild(neoMiss);
 		
 					
