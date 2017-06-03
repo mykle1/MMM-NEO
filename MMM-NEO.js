@@ -7,25 +7,25 @@
 Module.register("MMM-NEO", {
 
     // Module config defaults.
-    defaults: {        
-		rotateInterval: 5 * 60 * 1000, // New Image Appears
-		useHeader: false,
-        header: "Near Earth Objects Today",
-		maxWidth: "225px",             // adjust to your liking 
-		animationSpeed: 3000,          // Image fades in and out
-        initialLoadDelay: 2250,
+    defaults: {
+        rotateInterval: 5 * 60 * 1000, // New Object rotation.
+        useHeader: false,              // true if you want a header
+        header: "",
+        maxWidth: "250px",
+        animationSpeed: 3000,          // Object fade in and out speed
+        initialLoadDelay: 4250,
         retryDelay: 2500,
-		updateInterval: 60 * 60 * 1000, // NEO limitation = 50 calls per day. Do NOT change!
-		
+        updateInterval: 60 * 60 * 1000, // NEO limitation = 50 calls per day. Do NOT change!
+
     },
 
     getStyles: function() {
         return ["MMM-NEO.css"];
     },
-    
-    getScripts: function () {
-		return ["moment.js"];
-	},
+
+    getScripts: function() {
+        return ["moment.js"];
+    },
 
     start: function() {
         Log.info("Starting module: " + this.name);
@@ -33,8 +33,8 @@ Module.register("MMM-NEO", {
         requiresVersion: "2.1.0",
 
         // Set locale.
-        this.url = "https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=DEMO_KEY";       
-	    this.neo = {};
+        this.url = "https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=DEMO_KEY";
+        this.neo = {};
         this.activeItem = 0;
         this.rotateInterval = null;
         this.scheduleUpdate();
@@ -54,82 +54,84 @@ Module.register("MMM-NEO", {
 
         if (this.config.useHeader != false) {
             var header = document.createElement("header");
-            header.classList.add("xsmall", "bright");
+            header.classList.add("xsmall", "bright", "light");
             header.innerHTML = this.config.header;
             wrapper.appendChild(header);
         }
-		
-		
-		var neoKeys = Object.keys(this.neo);
+
+
+        var neoKeys = Object.keys(this.neo);
         if (neoKeys.length > 0) {
             if (this.activeItem >= neoKeys.length) {
                 this.activeItem = 0;
             }
             var neo = this.neo[neoKeys[this.activeItem]];
-	
-// console.log(this.neo);  
-  
+            // console.log(this.neo);  For checking
+
+
             var top = document.createElement("div");
             top.classList.add("list-row");
-			
-        //  Name of Near Earth Object   
+
+            // Name of Near Earth Object   
             var name = document.createElement("div");
-           
-			name.classList.add("small", "bright");
-			name.innerHTML = "NASA NEO ID: &nbsp" + neo.name;
-			wrapper.appendChild(name);
-		
-			
-			// Potentially Hazardous
-			var neoDanger = document.createElement("div");
-			neoDanger.classList.add("xsmall", "bright");
-			neoDanger.innerHTML = "Potentially Hazardous: &nbsp" + neo.is_potentially_hazardous_asteroid;
-			wrapper.appendChild(neoDanger);
-			
-			
-			// Estimated Diameter
-			var neoDiameter = document.createElement("div");
-			neoDiameter.classList.add("xsmall", "bright");
-			neoDiameter.innerHTML = "Estimated Diameter: &nbsp" + neo.estimated_diameter.meters.estimated_diameter_max + '&nbsp' + "meters";
-			wrapper.appendChild(neoDiameter);
-			
-			
-			// relative_velocity
-			var neoVelocity = document.createElement("div");
-			neoVelocity.classList.add("xsmall", "bright");
-			neoVelocity.innerHTML = "Relative Velocity: &nbsp" + neo.close_approach_data[0].relative_velocity.miles_per_hour + '&nbsp' + "mph";
-			wrapper.appendChild(neoVelocity);
-			
-			
-			// Close Approach Date
-			var neoApproach = document.createElement("div");
-			neoApproach.classList.add("xsmall", "bright");
-			neoApproach.innerHTML = "Close Approach Date: &nbsp" + neo.close_approach_data[0].close_approach_date;
-			wrapper.appendChild(neoApproach);
-			
-			
-			
-			// Miss Distance
-			var neoMiss = document.createElement("div");
-			neoMiss.classList.add("xsmall", "bright");
-			neoMiss.innerHTML = "Missed Earth by &nbsp" + neo.close_approach_data[0].miss_distance.miles + '&nbsp' + "miles";
-			//wrapper.appendChild(neoMiss);
-		
-					
-			
+            name.classList.add("small", "bright");
+            name.innerHTML = "NASA NEO ID: &nbsp" + neo.name;
+            wrapper.appendChild(name);
+
+
+            // Miss Distance. Math.round = Brofessor!
+            var neoMiss = document.createElement("div");
+            neoMiss.classList.add("xsmall", "bright");
+            neoMiss.innerHTML = "Missed Earth by &nbsp" + Math.round(neo.close_approach_data[0].miss_distance.kilometers) + '&nbsp' + "kilometers";
+            wrapper.appendChild(neoMiss);
+
+
+            // Close Approach Date
+            var neoApproach = document.createElement("div");
+            neoApproach.classList.add("xsmall", "bright");
+            neoApproach.innerHTML = "Close Approach Date: &nbsp" + neo.close_approach_data[0].close_approach_date;
+            wrapper.appendChild(neoApproach);
+
+
+            // Estimated Diameter
+            var neoDiameter = document.createElement("div");
+            neoDiameter.classList.add("xsmall", "bright");
+            neoDiameter.innerHTML = "Estimated Diameter: " + Math.round(neo.estimated_diameter.meters.estimated_diameter_max) + '&nbsp' + "meters";
+            wrapper.appendChild(neoDiameter);
+
+
+            // relative_velocity km/hour
+            var neoVelocity = document.createElement("div");
+            neoVelocity.classList.add("xsmall", "bright");
+            neoVelocity.innerHTML = "Velocity per hour: &nbsp" + Math.round(neo.close_approach_data[0].relative_velocity.kilometers_per_hour) + '&nbsp' + "km/h";
+            wrapper.appendChild(neoVelocity);
+
+
+            // relative_velocity km/second
+            var neoVelocity2 = document.createElement("div");
+            neoVelocity2.classList.add("xsmall", "bright");
+            neoVelocity2.innerHTML = "Velocity per second: &nbsp" + Math.round(neo.close_approach_data[0].relative_velocity.kilometers_per_second) + '&nbsp' + "km/s";
+            wrapper.appendChild(neoVelocity2);
+
+
+            // Potentially Hazardous. Met Brofessor's if/else challenge.
+            var neoDanger = document.createElement("div");
+            neoDanger.classList.add("xsmall", "bright");
+            if (this.neo.is_potentially_hazardous_asteroid == true) {
+                neoDanger.innerHTML = "Potentially Hazardous: &nbsp" + "Yes";
+            } else
+                neoDanger.innerHTML = "Potentially Hazardous: &nbsp" + "No";
         }
-		wrapper.appendChild(neoMiss);
+        wrapper.appendChild(neoDanger);
         return wrapper;
     },
 
     processNEO: function(data) {
         var date = moment(new Date()).format("YYYY-MM-DD");
-		this.today = data.Today;
+        this.today = data.Today;
         this.neo = data[date];
         this.loaded = true;
     },
-    
-    
 
     scheduleCarousel: function() {
         console.log("Near Earth Objects");
