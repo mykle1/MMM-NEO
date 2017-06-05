@@ -33,8 +33,10 @@ Module.register("MMM-NEO", {
         requiresVersion: "2.1.0",
 
         // Set locale.
-        this.url = "https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=DEMO_KEY";
-        this.neo = {};
+		this.date = moment(new Date()).format("YYYY-MM-DD");
+    //    this.url = "https://api.nasa.gov/neo/rest/v1/feed?start_date="+this.date+"&detailed=true&api_key=DEMO_KEY";
+		this.url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + this.date + "&detailed=true&api_key=h8B6cBf4uMSUnArnD7efNm7NyhdHGCnlhvAIM4pf";
+		this.neo = {};
         this.activeItem = 0;
         this.rotateInterval = null;
         this.scheduleUpdate();
@@ -114,10 +116,10 @@ Module.register("MMM-NEO", {
             wrapper.appendChild(neoVelocity2);
 
 
-            // Potentially Hazardous. Met Brofessor's if/else challenge.
+            // Potentially Hazardous. Met Brofessor's if/else challenge. Stupid this!
             var neoDanger = document.createElement("div");
             neoDanger.classList.add("xsmall", "bright");
-            if (this.neo.is_potentially_hazardous_asteroid == true) {
+			if (neo.is_potentially_hazardous_asteroid === true) {
                 neoDanger.innerHTML = "Potentially Hazardous: &nbsp" + "Yes";
             } else
                 neoDanger.innerHTML = "Potentially Hazardous: &nbsp" + "No";
