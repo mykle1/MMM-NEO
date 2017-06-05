@@ -31,7 +31,7 @@ How big are they? How fast are they travelling? Are they potentially dangerous? 
 		rotateInterval: 5 * 60 * 1000,  // New Object Rotation
 		useHeader: false,               // true if you want a header
 		header: "",
-		maxWidth: "250px",
+		maxWidth: "275px",
 		animationSpeed: 3000,           // Image fades in and out
         }
     },
