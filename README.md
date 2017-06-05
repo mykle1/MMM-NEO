@@ -26,7 +26,7 @@ How big are they? How fast are they travelling? Are they potentially dangerous? 
 
     {
         module: 'MMM-NEO',
-        position: 'top_left',               // Best in left or right regions
+        position: 'top_left',               // Best in left, right or center regions
         config: { 
 		rotateInterval: 5 * 60 * 1000,  // New Object Rotation
 		useHeader: false,               // true if you want a header
