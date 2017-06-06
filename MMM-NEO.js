@@ -35,7 +35,7 @@ Module.register("MMM-NEO", {
         // Set locale.
 		this.date = moment(new Date()).format("YYYY-MM-DD");
     //    this.url = "https://api.nasa.gov/neo/rest/v1/feed?start_date="+this.date+"&detailed=true&api_key=DEMO_KEY";
-		this.url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + this.date + "&detailed=true&api_key=h8B6cBf4uMSUnArnD7efNm7NyhdHGCnlhvAIM4pf";
+		this.url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + this.date + "&detailed=true&api_key=DEMO_KEY";
 		this.neo = {};
         this.activeItem = 0;
         this.rotateInterval = null;
