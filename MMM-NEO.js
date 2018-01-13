@@ -127,6 +127,19 @@ Module.register("MMM-NEO", {
         wrapper.appendChild(neoDanger);
         return wrapper;
     },
+	
+	
+/////  Add this function to the modules you want to control with voice //////
+
+    notificationReceived: function(notification, payload) {
+        if (notification === 'HIDE_NEO') {
+            this.hide(1000);
+        }  else if (notification === 'SHOW_NEO') {
+            this.show(1000);
+        }
+            
+    },
+	
 
     processNEO: function(data) {
         var date = moment(new Date()).format("YYYY-MM-DD");
